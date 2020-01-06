@@ -1,0 +1,21 @@
+#!usr/bin/env python3
+
+
+# Function that returns the mutual information of two discrete random variables
+def mutual_information(joint, unique_rows, marginal_x, marginal_y):
+
+    from numpy import log2 as log2
+
+    mutual_info = 0                       # Mutual information of x and y
+    rows, columns = joint.shape           # Number of rows and columns of data_matrix
+
+    for i in range(0, rows):
+        # WE NEED TO CREATE A TABLE IN ANOTHER FUNCTION WITH THE JOINT PMF AND THE MARGINAL PMFS IN ORDER
+        mutual_info += joint[i] * log2(joint[i] / (marginal_y[i] * marginal_x[j]))
+
+    #for i in range(0, len(marginal_y)):
+        #for j in range(0, len(marginal_x)):
+            #if joint[i][j] != 0 and marginal_y[i] != 0 and marginal_x[j] != 0:  # If equal to zero, no need to calculate
+                #mutual_info += joint[i][j] * log2(joint[i][j]/(marginal_y[i] * marginal_x[j]))
+
+    return mutual_info
