@@ -10,6 +10,7 @@ from pmf_joint import pmf_joint
 from entropy import entropy
 from mutual_info import mutual_information
 
+
 iris = datasets.load_iris()
 data_matrix, class_vector = iris.data, iris.target
 data_matrix_int = (10*data_matrix[:, 0:4]).astype(int)

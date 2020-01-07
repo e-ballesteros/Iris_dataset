@@ -1,7 +1,9 @@
 #!usr/bin/env python3
 
 
-# Function that returns the mutual information of two discrete random variables
+# Returns the mutual information between two features, unique_rows contains the unique rows inside the two features,
+# joint is the joint pmf and marginal_x and marginal_y are the pmf of the features treated
+
 def mutual_information(joint, unique_rows, marginal_x, marginal_y):
 
     from numpy import log2 as log2
@@ -10,12 +12,14 @@ def mutual_information(joint, unique_rows, marginal_x, marginal_y):
     rows, columns = joint.shape           # Number of rows and columns of data_matrix
 
     for i in range(0, rows):
-        # WE NEED TO CREATE A TABLE IN ANOTHER FUNCTION WITH THE JOINT PMF AND THE MARGINAL PMFS IN ORDER
-        mutual_info += joint[i] * log2(joint[i] / (marginal_y[i] * marginal_x[j]))
-
-    #for i in range(0, len(marginal_y)):
-        #for j in range(0, len(marginal_x)):
-            #if joint[i][j] != 0 and marginal_y[i] != 0 and marginal_x[j] != 0:  # If equal to zero, no need to calculate
-                #mutual_info += joint[i][j] * log2(joint[i][j]/(marginal_y[i] * marginal_x[j]))
+        mutual_info += joint[i] * log2(joint[i] /
+                                       (marginal_x[search_pmf(unique_rows[0], marginal_x)] *
+                                        marginal_y[search_pmf(unique_rows[1], marginal_y)]))
 
     return mutual_info
+
+
+def search_pmf(unique_row_value, unique_rows_a):
+    for i in range(0, len(unique_rows_a)):
+        if unique_rows_a[i] == unique_row_value:
+            return i
